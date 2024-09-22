@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Latest Repository Changes</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        h1 {
+            color: #333;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        li {
+            padding: 8px;
+            border-bottom: 1px solid #ccc;
+        }
+    </style>
+</head>
+<body>
+    <h1>Latest Git Repository Changes</h1>
+    <ul id="eventList"></ul>
+
+    <script>
+        const fetchEvents = async () => {
+            try {
+                const response = await fetch('https://293f-223-185-30-32.ngrok-free.app/events'); // Updating the URL as needed
+                const events = await response.json();
+                const eventList = document.getElementById('eventList');
+                eventList.innerHTML = ''; 
+
+                events.forEach(event => {
+                    const li = document.createElement('li');
+                    li.textContent = event;
+                    eventList.appendChild(li);
+                });
+            } catch (error) {
+                console.error('Error fetching events:', error);
+            }
+        };
+
+        fetchEvents(); // Fetching events initially
+        setInterval(fetchEvents, 15000); // Fetching in every 15 seconds
+    </script>
+</body>
+</html>
